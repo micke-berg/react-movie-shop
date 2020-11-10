@@ -1,4 +1,4 @@
-// feature 1
+// feature one
 import React from "react";
 
 const App: React.FC = () => {
