@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Products from "./components/Products/Products";
 import data from "./data.json";
@@ -6,8 +7,16 @@ function App() {
   const [state, setState] = useState({
     products: data.products,
   });
+
+
+// feature one
+import React from "react";
+
+const App: React.FC = () => {
+
   return (
     <div className='grid-container'>
+      <header className='App-header'>
       <header>
         <a href='/'>React Movie Shop</a>
       </header>
@@ -23,6 +32,6 @@ function App() {
       <footer>All rights reserved.</footer>
     </div>
   );
-}
+};
 
 export default App;
