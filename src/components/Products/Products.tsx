@@ -8,7 +8,7 @@ function Products(props: any) {
         {props.products.map((product: any) => (
           <li key={product.id}>
             <div className='product'>
-              <a href={"#" + product._id}>
+              <a href={product.imageUrl}>
                 <img src={product.image} alt={product.name} />
                 <p>{product.name}</p>
               </a>
