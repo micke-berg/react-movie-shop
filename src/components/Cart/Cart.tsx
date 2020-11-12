@@ -1,17 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+
 import "./Cart.styles.scss";
 import { ICartItems } from "../../Interfaces/ICartItems";
 import { IMovie } from "../../Interfaces/IMovie";
+import { IOrder } from "../../Interfaces/IOrder";
 import { count } from "console";
 
 interface ICartProps {
   cartItems: IMovie[];
   count: number;
+  // setCartItems(value: IMovie): void;
+  createOrder(value: IOrder): void;
   removeFromCart(value: IMovie): void;
 }
 
 function Cart(props: ICartProps) {
   const { cartItems } = props;
+
+  const [showCheckOut, setShowCheckOut] = useState<boolean>(false);
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    address: "",
+  });
+
+  interface HandleInputProps {
+    name: string;
+    email: string;
+    address: string;
+  }
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const createOrder = (e: React.FormEvent<HTMLFormElement>) => {
+    // e.preventDefault();
+
+    const order = {
+      name: formState.name,
+      email: formState.email,
+      address: formState.address,
+      cartItems: props.cartItems,
+    };
+    props.createOrder(order);
+  };
 
   return (
     <div>
@@ -44,14 +77,57 @@ function Cart(props: ICartProps) {
           </ul>
         </div>
         {cartItems.length !== 0 && (
-          <div className='cart'>
-            <div className='total'>
-              <div>
-                Total:{" "}
-                {cartItems.reduce((a, c) => a + c.price * props.count, 0)} KR
+          <div>
+            <div className='cart'>
+              <div className='total'>
+                <div>
+                  Total:{" "}
+                  {cartItems.reduce((a, c) => a + c.price * props.count, 0)} KR
+                </div>
+                <button
+                  onClick={() => setShowCheckOut(true)}
+                  className='button primary'>
+                  Proceed
+                </button>
               </div>
-              <button className='button primary'>Proceed</button>
             </div>
+            {showCheckOut && (
+              <div className='cart'>
+                <form onSubmit={createOrder}>
+                  <ul className='form-container'>
+                    <li>
+                      <label>Email</label>
+                      <input
+                        name='email'
+                        type='email'
+                        required
+                        onChange={handleInput}></input>
+                    </li>
+                    <li>
+                      <label>Name</label>
+                      <input
+                        name='name'
+                        type='text'
+                        required
+                        onChange={handleInput}></input>
+                    </li>
+                    <li>
+                      <label>Address</label>
+                      <input
+                        name='address'
+                        type='text'
+                        required
+                        onChange={handleInput}></input>
+                    </li>
+                    <li>
+                      <button type='submit' className='button primary'>
+                        Check Out
+                      </button>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            )}
           </div>
         )}
       </div>

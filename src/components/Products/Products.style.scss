@@ -4,13 +4,14 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   list-style-type: none;
 
   li {
     flex: 0 1 29rem;
     height: 47rem;
     padding: 1rem;
+    margin: 0;
   }
 }
 
@@ -23,6 +24,13 @@
   img {
     max-width: 37rem;
     max-height: 37rem;
+    object-fit: contain;
+    transition: all 0.2s ease-in-out;
+  }
+  :hover {
+    // transform: scale(1.05);
+    opacity: 0.85;
+    transition: 0.3s;
   }
 }
 
@@ -45,6 +53,7 @@
   padding: 1rem;
   border: 1px solid #f18900;
   background-color: #f18900;
+  border-radius: 50px;
   &:hover {
     background-color: rgba(241, 137, 0, 0.85);
   }

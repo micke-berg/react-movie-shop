@@ -48,3 +48,22 @@
     font-size: 2rem;
   }
 }
+
+form {
+  width: 100%;
+}
+
+.form-container {
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+
+input {
+  padding: 0.6rem 1rem;
+}
