@@ -4,6 +4,7 @@ import axios from "axios";
 import { IMovie } from "./Interfaces/IMovie";
 import { ICartItems } from "./Interfaces/ICartItems";
 import { ICategories } from "./Interfaces/ICategories";
+import { IOrder } from "./Interfaces/IOrder";
 
 import Cart from "./components/Cart/Cart";
 import Filter from "./components/Filter/Filter";
@@ -37,10 +38,21 @@ const App: React.FC = () => {
   }, []);
 
   const [showProducts, setShowProducts] = useState<IMovie[]>([]);
-  const [cartItems, setCartItems] = useState<IMovie[]>([]);
+  // Add
+  const [cartItems, setCartItems] = useState<IMovie[]>(
+    // localStorage.getItem("cartItems")
+    //   ? JSON.parse(localStorage.getItem("cartItems"))
+    //   :
+    []
+  );
+
   const [productCount, setProductCount] = useState(0);
 
   const temp = [];
+
+  const createOrder = (order: IOrder) => {
+    alert("Need to save order for" + order.name);
+  };
 
   const addToCart = (product: IMovie) => {
     const updatedCartItems = cartItems;
@@ -58,18 +70,15 @@ const App: React.FC = () => {
     if (!alreadyInCart) {
       cartItems.push({ ...product });
     }
-    console.log(updatedCartItems);
     setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   };
-
-  useEffect(() => {
-    setProductCount(showProducts.length);
-  }, [showProducts]);
 
   const removeFromCart = (product: IMovie) => {
     const updatedCart = cartItems.slice();
 
     setCartItems: setCartItems(updatedCart.filter((x) => x.id !== product.id));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   };
 
   const filterCategory = (event: React.ChangeEvent<HTMLSelectElement>): any => {
@@ -94,6 +103,10 @@ const App: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    setProductCount(showProducts.length);
+  }, [showProducts]);
+
   return (
     <div className='grid-container'>
       <header className='App-header'>
@@ -114,6 +127,7 @@ const App: React.FC = () => {
               cartItems={cartItems}
               removeFromCart={removeFromCart}
               count={productCount}
+              createOrder={createOrder}
             />
           </div>
         </div>
