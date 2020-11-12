@@ -1,20 +1,34 @@
 import React from "react";
 import "./Products.style.scss";
 
-function Products(props: any) {
+import { IMovie } from "../../Interfaces/IMovie";
+
+interface IProductsProps {
+  addToCart(value: IMovie): void;
+  products: IMovie[];
+  // onClick:
+  //   | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+  //   | undefined;
+}
+
+function Products(props: IProductsProps) {
   return (
     <div>
       <ul className='products'>
-        {props.products.map((product: any) => (
+        {props.products.map((product) => (
           <li key={product.id}>
             <div className='product'>
               <a href={product.imageUrl}>
-                <img src={product.image} alt={product.name} />
+                <img src={product.imageUrl} alt={product.name} />
                 <p>{product.name}</p>
               </a>
               <div className='product-price'>
                 <div>{product.price} KR</div>
-                <button className='button primary'>Add To Cart</button>
+                <button
+                  onClick={() => props.addToCart(product)}
+                  className='button primary'>
+                  Add To Cart
+                </button>
               </div>
             </div>
           </li>

@@ -1,56 +1,87 @@
-import { type } from "os";
 import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+import { IMovie } from "./Interfaces/IMovie";
+import { ICartItems } from "./Interfaces/ICartItems";
+import { ICategories } from "./Interfaces/ICategories";
+
+import Cart from "./components/Cart/Cart";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
-import data from "./data.json";
 
 const App: React.FC = () => {
-  // const productsData = data.products;
-  // const products = [...productsData];
+  const [productsResult, setProductsResult] = useState<IMovie[]>([]);
+  const [categoriesResult, setCategoriesResult] = useState<ICategories[]>([]);
+  const [movie, setMovie] = useState();
 
-  // const categoriesData = data.categories;
-  // const categories = [...categoriesData];
+  useEffect(() => {
+    axios
+      .get<IMovie[]>(
+        "https://medieinstitutet-wie-products.azurewebsites.net/api/products"
+      )
+      .then((res) => {
+        setProductsResult(res.data);
+        setShowProducts(res.data);
+      });
+  }, []);
 
-  const [state, setState] = useState({
-    products: data.products,
-    count: 0,
-  });
+  useEffect(() => {
+    axios
+      .get<ICategories[]>(
+        "https://medieinstitutet-wie-products.azurewebsites.net/api/categories"
+      )
+      .then((res) => {
+        console.log(res.data);
+        setCategoriesResult(res.data);
+      });
+  }, []);
 
-  // const sortProducts = (event: any) => {
-  //   const sort = event.target.value;
+  const [showProducts, setShowProducts] = useState<IMovie[]>([]);
+  const [cartItems, setCartItems] = useState<IMovie[]>([]);
 
-  //   console.log(event.target.value);
-  //   setState((state) => ({
-  //     sort: sort,
-  //     products: state.products.slice((a, b) =>
-  //       sort === "lowest"
-  //         ? a.price > b.price
-  //           ? 1
-  //           : -1
-  //         : sort === "highest"
-  //         ? a.price > b.price
-  //           ? 1
-  //           : -1
-  //         : a._id > b._id
-  //         ? 1
-  //         : -1
-  //     ),
-  //   }));
-  // };
+  const temp = [];
 
-  const filterProducts = (event: any) => {
+  const addToCart = (product: IMovie) => {
+    const updatedCartItems = cartItems;
+
+    updatedCartItems.push(product);
+
+    setCartItems(updatedCartItems);
+
+    // let alreadyInCart: boolean = false;
+
+    // cartItems.forEach((item: any) => {
+    //   if (item.id == product.id) {
+    //     item.count++;
+    //     alreadyInCart = true;
+    //   }
+    // });
+    // if (!alreadyInCart) {
+    //   cartItems.push({ ...product, count: 1 });
+    // }
+    // setCartItems({ cartItems });
+  };
+
+  const filterCategory = (event: React.ChangeEvent<HTMLSelectElement>): any => {
     console.log(event.target.value);
 
-    // if (event.target.value === "") {
-    //   setState({ price: event.target.value, product: data.products });
-    // } else {
-    //   setState({
-    //     price: event.target.value,
-    //     products: data.products.filter(
-    //       (product) => product.availableSizes.indexOf(event.target.value) >= 0
-    //     ),
-    //   });
-    // }
+    if (event.target.value === "") {
+      setShowProducts(productsResult);
+    } else {
+      const filterProducts = productsResult.filter((product) => {
+        let filterProducts: IMovie[] = [];
+
+        productsResult.map((product) => {
+          product.productCategory.map((pC) => {
+            if (pC.categoryId === parseInt(event.target.value)) {
+              filterProducts.push(product);
+              console.log(filterProducts);
+            }
+          });
+        });
+        setShowProducts(filterProducts);
+      });
+    }
   };
 
   return (
@@ -61,10 +92,16 @@ const App: React.FC = () => {
       <main>
         <div className='content'>
           <div className='main'>
-            <Filter filterProducts={filterProducts} count={state.count} />
-            <Products products={state.products} />
+            <Filter
+              filterCategory={filterCategory}
+              count={showProducts.length}
+              category={categoriesResult}
+            />
+            <Products products={showProducts} addToCart={addToCart} />
           </div>
-          <div className='sidebar'>Cart Items</div>
+          <div className='sidebar'>
+            <Cart cartItems={cartItems} />
+          </div>
         </div>
       </main>
       <footer>All rights reserved.</footer>
