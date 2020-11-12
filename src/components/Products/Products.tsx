@@ -6,9 +6,6 @@ import { IMovie } from "../../Interfaces/IMovie";
 interface IProductsProps {
   addToCart(value: IMovie): void;
   products: IMovie[];
-  // onClick:
-  //   | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-  //   | undefined;
 }
 
 function Products(props: IProductsProps) {

@@ -38,28 +38,38 @@ const App: React.FC = () => {
 
   const [showProducts, setShowProducts] = useState<IMovie[]>([]);
   const [cartItems, setCartItems] = useState<IMovie[]>([]);
+  const [productCount, setProductCount] = useState(0);
 
   const temp = [];
 
   const addToCart = (product: IMovie) => {
     const updatedCartItems = cartItems;
+    let alreadyInCart: boolean = false;
 
     updatedCartItems.push(product);
-
     setCartItems(updatedCartItems);
 
-    // let alreadyInCart: boolean = false;
+    updatedCartItems.forEach((item: any) => {
+      if (item.id == product.id) {
+        item.count++;
+        alreadyInCart = true;
+      }
+    });
+    if (!alreadyInCart) {
+      cartItems.push({ ...product });
+    }
+    console.log(updatedCartItems);
+    setCartItems(updatedCartItems);
+  };
 
-    // cartItems.forEach((item: any) => {
-    //   if (item.id == product.id) {
-    //     item.count++;
-    //     alreadyInCart = true;
-    //   }
-    // });
-    // if (!alreadyInCart) {
-    //   cartItems.push({ ...product, count: 1 });
-    // }
-    // setCartItems({ cartItems });
+  useEffect(() => {
+    setProductCount(showProducts.length);
+  }, [showProducts]);
+
+  const removeFromCart = (product: IMovie) => {
+    const updatedCart = cartItems.slice();
+
+    setCartItems: setCartItems(updatedCart.filter((x) => x.id !== product.id));
   };
 
   const filterCategory = (event: React.ChangeEvent<HTMLSelectElement>): any => {
@@ -94,13 +104,17 @@ const App: React.FC = () => {
           <div className='main'>
             <Filter
               filterCategory={filterCategory}
-              count={showProducts.length}
+              count={productCount}
               category={categoriesResult}
             />
             <Products products={showProducts} addToCart={addToCart} />
           </div>
           <div className='sidebar'>
-            <Cart cartItems={cartItems} />
+            <Cart
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+              count={productCount}
+            />
           </div>
         </div>
       </main>

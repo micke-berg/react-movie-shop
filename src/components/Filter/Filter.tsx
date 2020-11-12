@@ -15,11 +15,13 @@ function Filter(props: IFilterProps): any {
       <div className='filter-result'> {props.count} Movies</div>
       <div className='filter-sort'></div>
       <div className='filter-sort'>
-        Filter{" "}
+        Filter by category{" "}
         <select onChange={props.filterCategory}>
           <option value=''>All</option>
           {props.category.map((category: any, i: number) => (
-            <option value={category.id}>{category.name}</option>
+            <option value={category.id} key={category.id}>
+              {category.name}
+            </option>
           ))}
         </select>
       </div>
