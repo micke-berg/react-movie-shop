@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import { ORDERS_URL } from "../../config";
 import { Fade } from "react-awesome-reveal";
 
 import "./Cart.styles.scss";
@@ -20,6 +23,7 @@ const Cart: React.FC<CartProps> = ({
   createOrder,
 }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [customerEmail, setCustomerEmail] = useState("");
   const [showCheckOut, setShowCheckOut] = useState<boolean>(false);
   const [formState, setFormState] = useState({
     name: "",
@@ -28,6 +32,7 @@ const Cart: React.FC<CartProps> = ({
     order: "",
     cartItems: "",
   });
+  const companyId = 13932;
 
   const handleInput = (e: any) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -35,7 +40,6 @@ const Cart: React.FC<CartProps> = ({
 
   const createOrders = (e: any) => {
     e.preventDefault();
-
     const order = {
       name: formState.name,
       email: formState.email,
@@ -46,8 +50,12 @@ const Cart: React.FC<CartProps> = ({
     createOrder(order);
   };
 
+  const clearOrder = () => {
+    // localStorage.clear("cartItems");
+  };
+
   console.log(formState);
-  // Get total sum of cart
+
   useEffect(() => {
     let total = 0;
     cartItems.forEach((item) => {
