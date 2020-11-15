@@ -49,33 +49,41 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
       </ul>
       {/* </Fade> */}
       {modalProduct && (
-        <Modal isOpen={true} onRequestClose={closeModal} className='modal'>
+        <Modal isOpen={true} onRequestClose={closeModal}>
           <Zoom>
-            <button onClick={closeModal}>X</button>
             <div className='modal-wrapper'>
+              <button className='close-modal' onClick={closeModal}>
+                X
+              </button>
               <div className='modal-product-details'>
                 <img src={modalProduct.imageUrl} alt={modalProduct.name} />
-                <div className='modal-products-detail-description'>
-                  <h1>
-                    <strong>{modalProduct.name}</strong>
-                  </h1>
-                  <p className='year-category'>{modalProduct.year}</p>
 
+                <div className='modal-products-detail-description'>
                   <div>
-                    <div className='modal-product-price'>
-                      {modalProduct.price}
+                    <h1>{modalProduct.name}</h1>
+                    <span className='year-category'>{modalProduct.year}</span>
+                  </div>
+
+                  <div className='price-buy'>
+                    <div className='modal-product-box'>
+                      <div className='modal-product-price'>
+                        {modalProduct.price} KR
+                      </div>
+                      <button
+                        className='button primary'
+                        onClick={() => {
+                          addToCart(modalProduct);
+                          closeModal();
+                        }}>
+                        Add to cart
+                      </button>
                     </div>
-                    <button
-                      className='button primary'
-                      onClick={() => {
-                        addToCart(modalProduct);
-                        closeModal();
-                      }}></button>
+                    <p>{modalProduct.description}</p>
+                    {/* <p>{truncate(modalProduct.description, 150)}</p> */}
                   </div>
                 </div>
               </div>
               {/* <p>{product.description}</p> */}
-              <p>{truncate(modalProduct.description, 150)}</p>
             </div>
           </Zoom>
         </Modal>
