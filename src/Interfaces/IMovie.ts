@@ -1,4 +1,4 @@
-interface ProductCategory {
+export interface IProductCategory {
   categoryId: number;
   category: null;
 }
@@ -11,5 +11,5 @@ export interface IMovie {
   imageUrl: string;
   year: number;
   added: string;
-  productCategory: Array<ProductCategory>;
+  productCategory: Array<IProductCategory>;
 }

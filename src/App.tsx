@@ -1,87 +1,114 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL } from "./config";
+
 import { IMovie } from "./Interfaces/IMovie";
-import { ICartItems } from "./Interfaces/ICartItems";
+import { ICartItem } from "./Interfaces/ICartItem";
 import { ICategories } from "./Interfaces/ICategories";
 import { IOrder } from "./Interfaces/IOrder";
+import { IProduct } from "./Interfaces/IProduct";
+import { ISearchTerm } from "./Interfaces/ISearsTerm";
+// import { ItemData } from "./components/Cart/Cart";
 
 import Cart from "./components/Cart/Cart";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
+import Header from "./components/Header/Header";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 const App: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [productsResult, setProductsResult] = useState<IMovie[]>([]);
+  const [moviesResult, setMoviesResult] = useState<IMovie[]>([]);
   const [categoriesResult, setCategoriesResult] = useState<ICategories[]>([]);
-  const [movie, setMovie] = useState();
-
-  useEffect(() => {
-    axios
-      .get<IMovie[]>(
-        "https://medieinstitutet-wie-products.azurewebsites.net/api/products"
-      )
-      .then((res) => {
-        setProductsResult(res.data);
-        setShowProducts(res.data);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get<ICategories[]>(
-        "https://medieinstitutet-wie-products.azurewebsites.net/api/categories"
-      )
-      .then((res) => {
-        console.log(res.data);
-        setCategoriesResult(res.data);
-      });
-  }, []);
-
   const [showProducts, setShowProducts] = useState<IMovie[]>([]);
-  // Add
-  const [cartItems, setCartItems] = useState<IMovie[]>(
-    // localStorage.getItem("cartItems")
-    //   ? JSON.parse(localStorage.getItem("cartItems"))
-    //   :
-    []
-  );
+  const [cartItems, setCartItems] = useState<ICartItem[]>([]);
 
   const [productCount, setProductCount] = useState(0);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  const temp = [];
+  async function getMovies(searchTerm: string) {
+    const endpoint = searchTerm
+      ? `${SEARCH_BASE_URL}${searchTerm}`
+      : `${API_URL}/products`;
+
+    const result = await axios.get(endpoint);
+    console.log("get movies result", result.data);
+    setProductsResult(result.data);
+    setShowProducts(result.data);
+
+    return result;
+  }
+
+  useEffect(() => {
+    getMovies(searchTerm);
+  }, [searchTerm]);
+
+  async function getCategories() {
+    const result = await axios.get(CATEGORIES_URL);
+    console.log("get categories result", result.data);
+    setCategoriesResult(result.data);
+
+    return result;
+  }
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const createOrder = (order: IOrder) => {
     alert("Need to save order for" + order.name);
   };
 
   const addToCart = (product: IMovie) => {
-    const updatedCartItems = cartItems;
-    let alreadyInCart: boolean = false;
+    const updatedCart = cartItems;
+    let alreadyAddedIndex = -1;
 
-    updatedCartItems.push(product);
-    setCartItems(updatedCartItems);
+    if (updatedCart.length > 0) {
+      updatedCart.map((cartItem, index) => {
+        if (cartItem.movie.id === product.id) {
+          alreadyAddedIndex = index;
+        }
+      });
+    }
+    if (alreadyAddedIndex === -1) {
+      const newItem = {
+        movie: product,
+        quantity: 1,
+      };
+      updatedCart.push(newItem);
+    } else {
+      updatedCart[alreadyAddedIndex].quantity++;
+    }
 
-    updatedCartItems.forEach((item: any) => {
-      if (item.id == product.id) {
-        item.count++;
-        alreadyInCart = true;
+    console.log("add to cart movie", product);
+    console.log("add to cart updated", updatedCart);
+
+    setCartItems([...updatedCart]);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
+  const removeFromCart = (cartItem: ICartItem) => {
+    const updatedCart = cartItems;
+
+    updatedCart.map((item, index) => {
+      if (item === cartItem) {
+        if (item.quantity > 1) {
+          item.quantity--;
+        } else {
+          updatedCart.splice(index, 1);
+        }
       }
     });
-    if (!alreadyInCart) {
-      cartItems.push({ ...product });
-    }
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    setCartItems([...updatedCart]);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
-  const removeFromCart = (product: IMovie) => {
-    const updatedCart = cartItems.slice();
-
-    setCartItems: setCartItems(updatedCart.filter((x) => x.id !== product.id));
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  };
-
-  const filterCategory = (event: React.ChangeEvent<HTMLSelectElement>): any => {
+  const filterCategory = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     console.log(event.target.value);
 
     if (event.target.value === "") {
@@ -104,30 +131,40 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    if (isFirstLoad) {
+      let loadedCart = localStorage.getItem("cartItems")
+        ? JSON.parse(localStorage.getItem("cartItems") || "{}")
+        : [];
+      setIsFirstLoad(false);
+      setCartItems(loadedCart);
+    }
+  }, []);
+
+  useEffect(() => {
     setProductCount(showProducts.length);
   }, [showProducts]);
 
+  // console.log("productCount", productCount);
+  console.log("showProducts", showProducts);
+  // console.log("cartItems", cartItems);
+
   return (
     <div className='grid-container'>
-      <header className='App-header'>
-        <a href='/'>React Movie Shop</a>
-      </header>
+      <Header
+        filterCategory={filterCategory}
+        count={productCount}
+        category={categoriesResult}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <main>
         <div className='content'>
-          <div className='main'>
-            <Filter
-              filterCategory={filterCategory}
-              count={productCount}
-              category={categoriesResult}
-            />
-            <Products products={showProducts} addToCart={addToCart} />
-          </div>
+          <Products products={showProducts} addToCart={addToCart} />
           <div className='sidebar'>
             <Cart
               cartItems={cartItems}
               removeFromCart={removeFromCart}
-              count={productCount}
-              createOrder={createOrder}
+              // createOrder={createOrder}
             />
           </div>
         </div>
