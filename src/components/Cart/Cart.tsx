@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 
 import "./Cart.styles.scss";
@@ -8,36 +8,53 @@ import { IOrder } from "../../Interfaces/IOrder";
 
 interface CartProps {
   cartItems: ICartItem[];
-
-  // createOrder(value: IOrder): void;
+  // order: IOrder;
   removeFromCart(cartItem: ICartItem): void;
+  createOrder(value: IOrder): void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
-  // const { cartItems } = props;
-
+const Cart: React.FC<CartProps> = ({
+  cartItems,
+  // order,
+  removeFromCart,
+  createOrder,
+}) => {
+  const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckOut, setShowCheckOut] = useState<boolean>(false);
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     address: "",
+    order: "",
+    cartItems: "",
   });
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (e: any) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  const createOrder = (e: React.FormEvent<HTMLFormElement>) => {
+  const createOrders = (e: any) => {
     e.preventDefault();
 
     const order = {
       name: formState.name,
       email: formState.email,
       address: formState.address,
-      // cartItems: cartItems,
+      cartItems: cartItems,
+      total: totalPrice,
     };
-    // createOrder(order);
+    createOrder(order);
   };
+
+  console.log(formState);
+  // Get total sum of cart
+  useEffect(() => {
+    let total = 0;
+    cartItems.forEach((item) => {
+      total = total + item.movie.price * item.quantity;
+      return setTotalPrice(total);
+    });
+  }, [cartItems]);
 
   return (
     <div>
@@ -81,12 +98,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
             <div className='cart'>
               <div className='total'>
                 <div>
-                  Total:{" "}
-                  {cartItems.reduce(
-                    (a, c) => a + c.movie.price * cartItems.length,
-                    0
-                  )}{" "}
-                  KR
+                  Total: <span className='total-sum'>{totalPrice} KR</span>
                 </div>
                 <button
                   onClick={() => setShowCheckOut(true)}
@@ -98,7 +110,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
             {showCheckOut && (
               <Fade direction={"right"} triggerOnce={true} cascade>
                 <div className='cart'>
-                  <form onSubmit={createOrder}>
+                  <form onSubmit={createOrders}>
                     <ul className='form-container'>
                       <li>
                         <label>Email</label>

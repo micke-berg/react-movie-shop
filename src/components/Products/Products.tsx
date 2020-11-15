@@ -49,7 +49,7 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
       </ul>
       {/* </Fade> */}
       {modalProduct && (
-        <Modal isOpen={true} onRequestClose={closeModal}>
+        <Modal isOpen={true} onRequestClose={closeModal} className='modal'>
           <Zoom>
             <button onClick={closeModal}>X</button>
             <div className='modal-wrapper'>
