@@ -1,11 +1,12 @@
 .thumb-li {
-  flex: 0 1 21rem;
+  flex: 0 1 22rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin: 0.5rem;
   padding: 10px;
+  height: 440px;
   transition: all 0.3s;
   background: #181818;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.6), 1px 1px 0px rgba(0, 0, 0, 0.4);
@@ -20,7 +21,8 @@
     border: 1px solid #f18900;
     background-color: #f18900;
     &:hover {
-      background-color: rgba(241, 137, 0, 0.85);
+      color: #f18900;
+      background: transparent;
     }
   }
 }

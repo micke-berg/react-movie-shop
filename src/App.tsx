@@ -23,7 +23,6 @@ const App: React.FC = () => {
   const [categoriesResult, setCategoriesResult] = useState<ICategories[]>([]);
   const [showProducts, setShowProducts] = useState<IMovie[]>([]);
   const [cartItems, setCartItems] = useState<ICartItem[]>([]);
-
   const [productCount, setProductCount] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
@@ -33,7 +32,7 @@ const App: React.FC = () => {
       : `${API_URL}/products`;
 
     const result = await axios.get(endpoint);
-    console.log("get movies result", result.data);
+    // console.log("get movies result", result.data);
     setProductsResult(result.data);
     setShowProducts(result.data);
 
@@ -56,10 +55,6 @@ const App: React.FC = () => {
     getCategories();
   }, []);
 
-  const createOrder = (order: IOrder) => {
-    alert("Need to save order for" + order.name);
-  };
-
   const addToCart = (product: IMovie) => {
     const updatedCart = cartItems;
     let alreadyAddedIndex = -1;
@@ -80,9 +75,8 @@ const App: React.FC = () => {
     } else {
       updatedCart[alreadyAddedIndex].quantity++;
     }
-
-    console.log("add to cart movie", product);
-    console.log("add to cart updated", updatedCart);
+    // console.log("add to cart movie", product);
+    // console.log("add to cart updated", updatedCart);
 
     setCartItems([...updatedCart]);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
@@ -103,6 +97,10 @@ const App: React.FC = () => {
 
     setCartItems([...updatedCart]);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
+  const createOrder = (order: IOrder) => {
+    alert("Need to save order for" + order.name);
   };
 
   const filterCategory = (
@@ -144,7 +142,7 @@ const App: React.FC = () => {
   }, [showProducts]);
 
   // console.log("productCount", productCount);
-  console.log("showProducts", showProducts);
+  // console.log("showProducts", showProducts);
   // console.log("cartItems", cartItems);
 
   return (
@@ -163,7 +161,7 @@ const App: React.FC = () => {
             <Cart
               cartItems={cartItems}
               removeFromCart={removeFromCart}
-              // createOrder={createOrder}
+              createOrder={createOrder}
             />
           </div>
         </div>
