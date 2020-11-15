@@ -1,13 +1,12 @@
 .cart {
-  padding: 1rem;
-  margin: 1rem;
   display: flex;
+  padding: 1rem;
+  margin: 0 1rem;
   flex-wrap: wrap;
 }
 
 .cart-header {
-  margin-top: 14px;
-  border-bottom: 0.1rem solid #d62222;
+  border-bottom: 0.1rem #f18900 solid;
 }
 .cart-items {
   padding: 0;
@@ -27,8 +26,19 @@
   }
 }
 
-.right {
+// .cart-info {
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: wrap;
+// }
+
+.cart-items-right {
   text-align: right;
+  margin-right: -8px;
+  button {
+    margin-left: 10px;
+    padding: 4px 14px;
+  }
 }
 
 .total {
@@ -43,6 +53,9 @@
   button {
     flex: 1;
     text-align: center;
+  }
+  button {
+    padding: 6px 8px;
   }
   div {
     font-size: 2rem;
@@ -62,8 +75,7 @@ form {
     flex-direction: column;
     padding: 1rem;
   }
-}
-
-input {
-  padding: 0.6rem 1rem;
+  input {
+    padding: 0.6rem 1rem;
+  }
 }

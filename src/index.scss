@@ -13,6 +13,14 @@ body,
   color: #ffffff;
 }
 
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+li {
+  list-style: none;
+}
 body,
 input,
 select,
@@ -28,34 +36,25 @@ textarea {
     "header"
     "main"
     "footer";
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: 17rem 1fr 5rem;
   grid-template-columns: 1fr;
   height: 100%;
 }
 
 header {
   grid-area: header;
-  background-color: #0d0d0d;
-  color: #ffffff;
+}
+
+// Product ul
+.content {
   display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  a {
-    color: rgba(255, 255, 255, 0.85);
-  }
+  flex-wrap: wrap;
 }
 
-a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-a:hover {
-  color: #ffffff;
-}
-
-main {
-  grid-area: main;
+.sidebar {
+  max-width: 440px;
+  flex: 1 20rem;
+  margin-right: 10px;
 }
 
 footer {
@@ -67,20 +66,14 @@ footer {
   align-items: center;
 }
 
-.content {
-  display: flex;
-  flex-wrap: wrap;
+.button {
+  background: #f18900;
+  border: none;
+  outline: none;
 }
 
-.main {
-  flex: 3 60rem;
+.button.primary {
+  &:hover {
+    background: rgba(241, 137, 0, 0.851);
+  }
 }
-
-.sidebar {
-  flex: 1 20rem;
-}
-
-// .button.primary {
-//   &:hover {
-//   }
-// }

@@ -3,30 +3,34 @@ import { IMovie } from "../../Interfaces/IMovie";
 import { ICategories } from "../../Interfaces/ICategories";
 import "./Filter.styles.scss";
 
-interface IFilterProps {
-  count: number;
-  category: ICategories[];
-  filterCategory(event: React.ChangeEvent<HTMLSelectElement>): any;
+interface CategoryData {
+  id: number;
+  name: string;
+}
+interface Props {
+  category: CategoryData[];
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
-function Filter(props: IFilterProps): any {
+const Filter: React.FC<Props> = ({ category, onChange }) => {
   return (
-    <div className='filter'>
-      <div className='filter-result'> {props.count} Movies</div>
-      <div className='filter-sort'></div>
-      <div className='filter-sort'>
-        Filter by category{" "}
-        <select onChange={props.filterCategory}>
-          <option value=''>All</option>
-          {props.category.map((category: any, i: number) => (
-            <option value={category.id} key={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+    <div className='filter-wrapper'>
+      <div className='filter'>
+        {/* <div className='filter-result'> {count} Movies</div> */}
+        <div className='filter-sort'>
+          Filter by category{" "}
+          <select onChange={onChange}>
+            <option value=''>All</option>
+            {category.map((category: any, i: number) => (
+              <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Filter;
