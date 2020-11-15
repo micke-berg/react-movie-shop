@@ -11,87 +11,68 @@
   align-items: center;
   padding: 0;
   margin: 0;
-
-  // li {
-  //   flex: 0 1 29rem;
-  //   height: 47rem;
-  //   padding: 1rem;
-  //   transform: scale(1);
-  //   margin: 2rem;
-  // }
 }
 
-// .product {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   height: 100%;
-//   box-shadow: 1px 1px 10px rgba(0, 0, 0, 1);
-//   padding: 2rem;
-
-//   img {
-//     max-width: 37rem;
-//     max-height: 37rem;
-//   }
-//   p {
-//     text-align: center;
-//   }
-
-//   a {
-//     display: flex;
-//     align-items: center;
-//     flex-direction: column;
-//     :hover {
-//       transition: all 0.3s;
-//       opacity: 0.75;
-//     }
-//   }
-// }
-
-// .product-price {
-//   display: flex;
-//   width: 100%;
-//   justify-content: space-between;
-//   align-items: center;
-
-//   div,
-//   button {
-//     text-align: center;
-//   }
-//   div {
-//     font-size: 2rem;
-//   }
-// }
-
-// .button {
-//   padding: 0.5rem 1.2rem;
-//   border: 1px solid #f18900;
-//   background-color: #f18900;
-//   border-radius: 50px;
-//   &:hover {
-//     background-color: rgba(241, 137, 0, 0.85);
-//   }
-// }
-
 .modal-wrapper {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  max-width: 100%;
   background: rgba(24, 24, 24, 0.9);
   padding: 20px;
-  .product-details {
+
+  .modal-product-details {
     display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    img {
+      object-fit: contain;
+      max-width: 400px;
+    }
   }
-  .products-detail-description {
+  .modal-products-detail-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: 80px;
+    height: 360px;
     .year-category {
-      font-weight: 700;
+      font-size: 24px;
     }
-    div {
+    .price-buy {
       display: flex;
-      width: 100%;
-      align-items: center;
-      flex-wrap: wrap;
+      // align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      width: 460px;
+      p {
+        margin-top: 30px;
+      }
+      button {
+        padding: 1.1rem 1.6rem;
+      }
     }
   }
+  .close-modal {
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+  }
+}
+.modal-product-box {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-product-price {
+  font-size: 22px;
 }
