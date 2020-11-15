@@ -9,7 +9,6 @@ import { ICategories } from "./Interfaces/ICategories";
 import { IOrder } from "./Interfaces/IOrder";
 import { IProduct } from "./Interfaces/IProduct";
 import { ISearchTerm } from "./Interfaces/ISearsTerm";
-// import { ItemData } from "./components/Cart/Cart";
 
 import Cart from "./components/Cart/Cart";
 import Filter from "./components/Filter/Filter";
