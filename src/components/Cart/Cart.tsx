@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Modal from "react-modal";
+import { Fade, Zoom } from "react-awesome-reveal";
+
+import { createOrder } from "../../API";
 
 import { ORDERS_URL } from "../../config";
-import { Fade } from "react-awesome-reveal";
 
 import "./Cart.styles.scss";
 import { ICartItem } from "../../Interfaces/ICartItem";
@@ -13,16 +16,16 @@ interface CartProps {
   cartItems: ICartItem[];
   // order: IOrder;
   removeFromCart(cartItem: ICartItem): void;
-  createOrder(value: IOrder): void;
 }
 
 const Cart: React.FC<CartProps> = ({
   cartItems,
   // order,
   removeFromCart,
-  createOrder,
 }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [creatingOrder, setCreatingOrder] = useState<IOrder[]>([]);
+  const [order, setOrder] = useState<IOrder[] | null>([]);
   const [customerEmail, setCustomerEmail] = useState("");
   const [showCheckOut, setShowCheckOut] = useState<boolean>(false);
   const [formState, setFormState] = useState({
@@ -40,6 +43,7 @@ const Cart: React.FC<CartProps> = ({
 
   const createOrders = (e: any) => {
     e.preventDefault();
+
     const order = {
       name: formState.name,
       email: formState.email,
@@ -51,7 +55,11 @@ const Cart: React.FC<CartProps> = ({
   };
 
   const clearOrder = () => {
-    // localStorage.clear("cartItems");
+    setOrder(null);
+  };
+
+  const closeModal = () => {
+    clearOrder();
   };
 
   console.log(formState);
@@ -73,6 +81,53 @@ const Cart: React.FC<CartProps> = ({
           You have {cartItems.length} item{cartItems.length >= 2 ? "s" : ""} in
           the cart
         </div>
+      )}
+      {order && (
+        <Modal isOpen={true} onRequestClose={closeModal}>
+          <Zoom>
+            <button className='close-modal' onClick={closeModal}>
+              X
+            </button>
+            <div className='order-details'>
+              <h3>Your order has been placed.</h3>
+              <h2>Order: {order.id}</h2>
+              <ul>
+                <li>
+                  <div>Name:</div>
+                  <div>{order.name}</div>
+                </li>
+                <li>
+                  <div>Email:</div>
+                  <div>{order.email}</div>
+                </li>
+                <li>
+                  <div>Address:</div>
+                  <div>{order.adress}</div>
+                </li>
+                <li>
+                  <div>Date:</div>
+                  <div>{order.created}</div>
+                </li>
+                <li>
+                  <div>Total:</div>
+                  <div>{order.total}</div>
+                </li>
+                <li>
+                  <div>Cart Items:</div>
+                  <div>
+                    {cartItems.map((item) => (
+                      <div>
+                        {item.count}
+                        {" x "}
+                        {item.name}
+                      </div>
+                    ))}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </Zoom>
+        </Modal>
       )}
       <div>
         <div className='cart'>

@@ -99,3 +99,29 @@ form {
     padding: 1.3rem 1rem;
   }
 }
+
+// Order details
+
+.order-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      padding: 10px;
+    }
+  }
+  .items {
+    text-align: right;
+    padding: 0;
+  }
+}
+
+.success-message {
+  color: green;
+}

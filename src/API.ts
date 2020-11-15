@@ -4,10 +4,6 @@ import { IOrder } from "./Interfaces/IOrder";
 import axios from "axios";
 import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL, ORDERS_URL } from "./config";
 
-const [orders, setOrders] = useState<IOrder[]>([]);
-
-export const clearOrder = () => {};
-
 async function deleteOrder(id: number) {
   const result = await axios.delete(`${ORDERS_URL}/${id}`);
   console.log("delete orders result", result);
@@ -15,11 +11,12 @@ async function deleteOrder(id: number) {
   // setOrders(filteredOrders);
 }
 
-export async function createOrder(data: any) {
-  const result = await axios.post(`${ORDERS_URL},${data}`);
-  console.log("create order result", result.data);
-  // setOrders(result.data);
+export async function createOrder(order: any) {
+  const result = await axios.post(`${ORDERS_URL}${order}`);
+  console.log("create order:", result.data);
+
   // localStorage.clear("cartItems");
+  console.log("clear cart");
   return result;
 }
 
@@ -28,7 +25,7 @@ async function getOrders(companyId: number) {
   const result = await axios.get(`${ORDERS_URL}/${companyId}`);
 
   console.log("get orders result", result.data);
-  setOrders(result.data);
+  // setOrders(result.data);
   return result;
 }
 
@@ -54,5 +51,4 @@ async function checkOut(params: any) {
   console.log(result.data);
 
   // localStorage.clear("cartItems");
-  clearOrder();
 }

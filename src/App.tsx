@@ -99,10 +99,6 @@ const App: React.FC = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
-  const createOrder = (order: IOrder) => {
-    alert("Need to save order for" + order.name);
-  };
-
   const filterCategory = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
@@ -161,7 +157,7 @@ const App: React.FC = () => {
             <Cart
               cartItems={cartItems}
               removeFromCart={removeFromCart}
-              createOrder={createOrder}
+              // createOrder={createOrder}
             />
           </div>
         </div>
