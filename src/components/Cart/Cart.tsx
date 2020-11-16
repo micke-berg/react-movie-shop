@@ -3,11 +3,12 @@ import axios from "axios";
 import Modal from "react-modal";
 import { Fade, Zoom } from "react-awesome-reveal";
 
+import "./Cart.styles.scss";
+
 import { createOrder } from "../../API";
 
 import { ORDERS_URL } from "../../config";
 
-import "./Cart.styles.scss";
 import ICartItem from "../../Interfaces/ICartItem";
 import IMovie from "../../Interfaces/IMovie";
 import IOrder from "../../Interfaces/IOrder";
@@ -16,9 +17,14 @@ import ICheckOut from "../../Interfaces/ICheckOut";
 interface CartProps {
   cartItems: ICartItem[];
   removeFromCart(cartItem: ICartItem): void;
+  resetCartItems(): void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
+const Cart: React.FC<CartProps> = ({
+  cartItems,
+  removeFromCart,
+  resetCartItems,
+}) => {
   const [showSubmittedModal, setShowSubmittedModal] = useState(false);
   const [showCheckOut, setShowCheckOut] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -47,7 +53,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
 
     const order = {
       id: 0,
-      companyId: 13932,
+      companyId: companyId,
       created: new Date().toISOString(),
       createdBy: orderState.email,
       paymentMethod: "mastercard",
@@ -63,6 +69,9 @@ const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
 
   const clearOrder = () => {
     setOrderState(null);
+    resetCartItems();
+    setTotalPrice(0);
+    localStorage.clear();
     console.log("clear orderState", orderState);
   };
 
