@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ORDERS_URL } from "../../config";
 
+import "./Order.style.scss";
 import { getOrders } from "../../API";
 
 interface Props {}
 function Orders(props: any) {
-  const { orders } = props;
+  const [orders, setOrders] = useState([]);
+  const companyId = 13932;
+
+  async function getOrders(companyId: number) {
+    await axios
+      .get(`${ORDERS_URL}?companyId=${companyId}`)
+      .then((result: any) => {
+        console.log(result);
+        console.log("get orders result", result.data);
+        setOrders(result.data);
+      });
+  }
+
+  useEffect(() => {
+    getOrders(companyId);
+  }, []);
 
   return !orders ? (
     <div>Orders</div>
@@ -16,12 +34,7 @@ function Orders(props: any) {
           <tr>
             <th>ID</th>
             <th>DATE</th>
-            <th>TOTAL</th>
-            <th>NAME</th>
             <th>EMAIL</th>
-            <th>ADDRESS</th>
-            <th>ITEMS</th>
-            <th>ID</th>
           </tr>
         </thead>
         <tbody>
@@ -29,17 +42,7 @@ function Orders(props: any) {
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>{order.created}</td>
-              <td>{order.totalPrice}</td>
-              <td>{order.name}</td>
-              <td>{order.email}</td>
-              <td>{order.address}</td>
-              <td>
-                {order.cartItems.map((item: any) => (
-                  <div key={item.movie.id}>
-                    {item.count} {" x "} {item.totalPrice}
-                  </div>
-                ))}
-              </td>
+              <td>{order.createdBy}</td>
             </tr>
           ))}
         </tbody>

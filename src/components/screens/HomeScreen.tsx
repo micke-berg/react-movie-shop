@@ -34,7 +34,6 @@ const HomeScreen: React.FC = () => {
       : `${API_URL}/products`;
 
     const result = await axios.get(endpoint);
-    // console.log("get movies result", result.data);
     setProductsResult(result.data);
     setShowProducts(result.data);
 
@@ -47,7 +46,6 @@ const HomeScreen: React.FC = () => {
 
   async function getCategories() {
     const result = await axios.get(CATEGORIES_URL);
-    // console.log("get categories result", result.data);
     setCategoriesResult(result.data);
 
     return result;
@@ -78,8 +76,6 @@ const HomeScreen: React.FC = () => {
     } else {
       updatedCart[alreadyAddedIndex].quantity++;
     }
-    // console.log("add to cart movie", product);
-    // console.log("add to cart updated", updatedCart);
 
     setCartItems([...updatedCart]);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
@@ -100,6 +96,10 @@ const HomeScreen: React.FC = () => {
 
     setCartItems([...updatedCart]);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
+  const resetCartItems = () => {
+    setCartItems([]);
   };
 
   const filterCategory = (
@@ -140,10 +140,6 @@ const HomeScreen: React.FC = () => {
     setProductCount(showProducts.length);
   }, [showProducts]);
 
-  // console.log("productCount", productCount);
-  // console.log("showProducts", showProducts);
-  // console.log("cartItems", cartItems);
-
   return (
     <BrowserRouter>
       <div className='grid-container'>
@@ -158,7 +154,11 @@ const HomeScreen: React.FC = () => {
           <div className='content'>
             <Products products={showProducts} addToCart={addToCart} />
             <div className='sidebar'>
-              <Cart cartItems={cartItems} removeFromCart={removeFromCart} />
+              <Cart
+                resetCartItems={resetCartItems}
+                cartItems={cartItems}
+                removeFromCart={removeFromCart}
+              />
             </div>
           </div>
         </main>

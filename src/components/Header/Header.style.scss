@@ -31,10 +31,15 @@
   // padding: 100px;
 }
 .header-filter-row {
-  padding: 0 20px;
-
+  padding: 0 40px 0 20px;
+  justify-content: flex-start;
   align-items: center;
   display: flex;
+}
+
+.header-filter-row-left {
+  display: flex;
+  align-items: center;
 }
 
 .filter-result {
@@ -50,6 +55,7 @@
   border: none;
   outline: none;
   img {
+    cursor: pointer;
     width: 24px;
   }
 }
