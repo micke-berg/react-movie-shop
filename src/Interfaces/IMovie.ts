@@ -3,7 +3,7 @@ export interface IProductCategory {
   category: null;
 }
 
-export interface IMovie {
+export default interface IMovie {
   id: number;
   name: string;
   description: string;

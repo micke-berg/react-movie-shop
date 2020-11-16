@@ -103,6 +103,8 @@ form {
 // Order details
 
 .order-details {
+  background: #ffffff;
+  color: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,6 +121,22 @@ form {
   .items {
     text-align: right;
     padding: 0;
+  }
+  .close-modal {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    button {
+      margin-top: -15px;
+      color: #000000;
+      background: transparent;
+      border: none;
+      font-size: 55px;
+      transform: rotate(45deg);
+      :focus {
+        outline: none;
+      }
+    }
   }
 }
 

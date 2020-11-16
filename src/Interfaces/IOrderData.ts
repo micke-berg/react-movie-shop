@@ -1,4 +1,4 @@
-export interface IOrderData {
+export default interface IOrderData {
   id: number;
   companyId: number;
   created: string;

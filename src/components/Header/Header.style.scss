@@ -7,8 +7,21 @@
 
   a {
     margin-left: 10px;
-    color: rgba(255, 255, 255, 0.85);
   }
+}
+
+.links {
+  justify-content: space-between;
+  align-items: baseline;
+  display: flex;
+  width: 300px;
+  a:last-child {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.main-color {
+  color: #f18900;
 }
 
 .header-content {
@@ -18,7 +31,6 @@
   justify-content: space-between;
   width: 100%;
   border: 0.1rem solid rgba(13, 13, 13, 0.7);
-
   // padding: 100px;
 }
 .header-filter-row {

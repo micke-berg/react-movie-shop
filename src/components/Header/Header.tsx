@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Filter from "../Filter/Filter";
 import "./Header.style.scss";
 
 import SearchBar from "../SearchBar/SearchBar";
 
 import searchIcon from "../../images/search-icon.svg";
-import { count } from "console";
-
 interface CategoryData {
   id: number;
   name: string;
@@ -36,18 +34,23 @@ const Header: React.FC<Props> = ({
 
   return (
     <header className='header-wrapper'>
-      {/* <Link to='/'> */}
-      <a href='/'>
-        <h2>React Movie Shop</h2>
-      </a>
-      {/* </Link> */}
+      <div className='links'>
+        <Link to='/'>
+          <h2>
+            <span className='main-color'>Movie</span> Shop
+            <span className='main-color'>.</span>
+          </h2>
+        </Link>
+        <Link to='/admin'>
+          <div>Admin</div>
+        </Link>
+      </div>
       <div className='header-content'>
         <div className='header-filter-row'>
           <div className='filter-result'> {count} Movies</div>
           <Filter onChange={filterCategory} category={category} />
         </div>
       </div>
-
       <div className='header-searchbar'>
         {!isHidden && (
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

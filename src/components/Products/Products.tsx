@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Products.style.scss";
 
-import { IMovie } from "../../Interfaces/IMovie";
-import { ICartItem } from "../../Interfaces/ICartItem";
-import { IProduct } from "../../Interfaces/IProduct";
+import IMovie from "../../Interfaces/IMovie";
+import ICartItem from "../../Interfaces/ICartItem";
+import IProduct from "../../Interfaces/IProduct";
 
 import Modal from "react-modal";
 import { Fade, Zoom } from "react-awesome-reveal";
@@ -44,7 +44,12 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
       {/* <Fade direction={"up"} cascade> */}
       <ul className='products-list'>
         {products.map((movie) => (
-          <Thumb movie={movie} addToCart={addToCart} openModal={openModal} />
+          <Thumb
+            key={movie.id}
+            movie={movie}
+            addToCart={addToCart}
+            openModal={openModal}
+          />
         ))}
       </ul>
       {/* </Fade> */}
@@ -53,7 +58,7 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
           <Zoom>
             <div className='modal-wrapper'>
               <button className='close-modal' onClick={closeModal}>
-                X
+                +
               </button>
               <div className='modal-product-details'>
                 <img src={modalProduct.imageUrl} alt={modalProduct.name} />

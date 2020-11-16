@@ -8,61 +8,69 @@ import { createOrder } from "../../API";
 import { ORDERS_URL } from "../../config";
 
 import "./Cart.styles.scss";
-import { ICartItem } from "../../Interfaces/ICartItem";
-import { IMovie } from "../../Interfaces/IMovie";
-import { IOrder } from "../../Interfaces/IOrder";
+import ICartItem from "../../Interfaces/ICartItem";
+import IMovie from "../../Interfaces/IMovie";
+import IOrder from "../../Interfaces/IOrder";
+import ICheckOut from "../../Interfaces/ICheckOut";
 
 interface CartProps {
   cartItems: ICartItem[];
-  // order: IOrder;
   removeFromCart(cartItem: ICartItem): void;
 }
 
-const Cart: React.FC<CartProps> = ({
-  cartItems,
-  // order,
-  removeFromCart,
-}) => {
+const Cart: React.FC<CartProps> = ({ cartItems, removeFromCart }) => {
+  const [showSubmittedModal, setShowSubmittedModal] = useState(false);
+  const [showCheckOut, setShowCheckOut] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [creatingOrder, setCreatingOrder] = useState<IOrder[]>([]);
-  const [order, setOrder] = useState<IOrder[] | null>([]);
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [showCheckOut, setShowCheckOut] = useState<boolean>(false);
-  const [formState, setFormState] = useState({
+  const [orderState, setOrderState] = useState<any | null>({
     name: "",
     email: "",
     address: "",
-    order: "",
-    cartItems: "",
   });
+
+  const [checkOut, setCheckOut] = useState({
+    name: "",
+    email: "",
+    address: "",
+  });
+
   const companyId = 13932;
 
   const handleInput = (e: any) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    console.log("handle input");
+    setOrderState({ ...orderState, [e.target.name]: e.target.value });
   };
 
   const createOrders = (e: any) => {
     e.preventDefault();
 
     const order = {
-      name: formState.name,
-      email: formState.email,
-      address: formState.address,
-      cartItems: cartItems,
+      id: 0,
+      companyId: 13932,
+      created: new Date().toISOString(),
+      createdBy: orderState.email,
+      paymentMethod: "mastercard",
       total: totalPrice,
+      status: 0,
+      orderRows: [],
     };
+
+    console.log("create order", order);
     createOrder(order);
+    setShowSubmittedModal(true);
   };
 
   const clearOrder = () => {
-    setOrder(null);
+    setOrderState(null);
+    console.log("clear orderState", orderState);
   };
 
   const closeModal = () => {
     clearOrder();
+    setShowSubmittedModal(false);
+    console.log("close Modal");
   };
-
-  console.log(formState);
 
   useEffect(() => {
     let total = 0;
@@ -72,6 +80,11 @@ const Cart: React.FC<CartProps> = ({
     });
   }, [cartItems]);
 
+  Modal.setAppElement("body");
+  console.log("this is cartItems", cartItems);
+  console.log(totalPrice);
+  // console.log(showSubmittedModal);
+  // console.log(orderState);
   return (
     <div>
       {cartItems.length === 0 ? (
@@ -82,44 +95,40 @@ const Cart: React.FC<CartProps> = ({
           the cart
         </div>
       )}
-      {order && (
-        <Modal isOpen={true} onRequestClose={closeModal}>
+      {showSubmittedModal && (
+        <Modal isOpen={true} onRequestClose={() => closeModal()}>
           <Zoom>
-            <button className='close-modal' onClick={closeModal}>
-              X
-            </button>
             <div className='order-details'>
-              <h3>Your order has been placed.</h3>
-              <h2>Order: {order.id}</h2>
+              <span className='close-modal'>
+                <button onClick={() => closeModal()}>+</button>
+              </span>
+              <h3 className='success-message'>Your order has been placed</h3>
+              <h2>Order: {Math.floor(Math.random() * 11000 - 6000)}</h2>
               <ul>
                 <li>
                   <div>Name:</div>
-                  <div>{order.name}</div>
+                  <div>{orderState.name}</div>
                 </li>
                 <li>
                   <div>Email:</div>
-                  <div>{order.email}</div>
-                </li>
-                <li>
-                  <div>Address:</div>
-                  <div>{order.adress}</div>
+                  <div>{orderState.email}</div>
                 </li>
                 <li>
                   <div>Date:</div>
-                  <div>{order.created}</div>
+                  <div>{new Date().toISOString()}</div>
                 </li>
                 <li>
                   <div>Total:</div>
-                  <div>{order.total}</div>
+                  <div>{totalPrice} KR</div>
                 </li>
                 <li>
                   <div>Cart Items:</div>
                   <div>
                     {cartItems.map((item) => (
-                      <div>
-                        {item.count}
+                      <div key={item.movie.id}>
+                        {item.quantity}
                         {" x "}
-                        {item.name}
+                        {item.movie.name}
                       </div>
                     ))}
                   </div>

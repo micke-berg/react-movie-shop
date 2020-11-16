@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-import { IOrder } from "./Interfaces/IOrder";
+import IOrder from "./Interfaces/IOrder";
 
 import axios from "axios";
 import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL, ORDERS_URL } from "./config";
 
-async function deleteOrder(id: number) {
+// export async function getCategories() {
+//   const result = await axios.get(CATEGORIES_URL);
+//   console.log("get categories result", result.data);
+//   // setCategoriesResult(result.data);
+
+//   return result;
+// }
+
+export async function deleteOrder(id: number) {
   const result = await axios.delete(`${ORDERS_URL}/${id}`);
   console.log("delete orders result", result);
-  // const filteredOrders = orders.filter((item) => item.id !== id);
+  const filteredOrders = result.data.filter((item: any) => item.id !== id);
   // setOrders(filteredOrders);
+  return filteredOrders;
 }
 
 export async function createOrder(order: any) {
-  const result = await axios.post(`${ORDERS_URL}${order}`);
-  console.log("create order:", result.data);
-
-  // localStorage.clear("cartItems");
-  console.log("clear cart");
-  return result;
+  await axios.post(`${ORDERS_URL}${order}`).then((result: any) => {
+    localStorage.clear();
+  });
 }
 
-// -----------------
-async function getOrders(companyId: number) {
+export async function getOrders(companyId: number) {
   const result = await axios.get(`${ORDERS_URL}/${companyId}`);
 
   console.log("get orders result", result.data);
@@ -29,26 +34,8 @@ async function getOrders(companyId: number) {
   return result;
 }
 
-let params = {
-  id: 0,
-  companyId: 5490,
-  created: new Date(),
-  // createdBy: customerEmail,
-  paymentMethod: "mastercard",
-  // totalPrice: totalPrice,
-
-  // props.message.reduce(
-  //   (a, c) => a + c.amount * c.product.price,
-  //   0
-  // )
-
-  status: 0,
-  // orderRows: orderMovies,
-};
-
-async function checkOut(params: any) {
+export async function checkOut(params: any) {
   const result = await axios.post(`${ORDERS_URL},${params}`);
-  console.log(result.data);
-
-  // localStorage.clear("cartItems");
+  console.log("check out result", result.data);
+  localStorage.clear();
 }

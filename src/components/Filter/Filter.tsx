@@ -1,6 +1,6 @@
 import React from "react";
-import { IMovie } from "../../Interfaces/IMovie";
-import { ICategories } from "../../Interfaces/ICategories";
+import IMovie from "../../Interfaces/IMovie";
+import ICategories from "../../Interfaces/ICategories";
 import "./Filter.styles.scss";
 
 interface CategoryData {
