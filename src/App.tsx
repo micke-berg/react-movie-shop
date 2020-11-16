@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+
+import HomeScreen from "./components/screens/HomeScreen";
+import AdminScreen from "./components/screens/AdminScreen";
+
+// import { getCategories } from "./API";
 
 import axios from "axios";
 import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL } from "./config";
 
-import { IMovie } from "./Interfaces/IMovie";
-import { ICartItem } from "./Interfaces/ICartItem";
-import { ICategories } from "./Interfaces/ICategories";
-import { IOrder } from "./Interfaces/IOrder";
-import { IProduct } from "./Interfaces/IProduct";
-import { ISearchTerm } from "./Interfaces/ISearsTerm";
+import ICartItem from "./Interfaces/ICartItem";
+import IOrder from "./Interfaces/IOrder";
+import IProduct from "./Interfaces/IProduct";
+import IMovie from "./Interfaces/IMovie";
+import ICategories from "./Interfaces/ICategories";
+import ISearchTerm from "./Interfaces/ISearsTerm";
 
 import Cart from "./components/Cart/Cart";
-import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
+import Filter from "./components/Filter/Filter";
 import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
+import Footer from "./components/Footer/Footer";
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,8 +29,8 @@ const App: React.FC = () => {
   const [moviesResult, setMoviesResult] = useState<IMovie[]>([]);
   const [categoriesResult, setCategoriesResult] = useState<ICategories[]>([]);
   const [showProducts, setShowProducts] = useState<IMovie[]>([]);
-  const [cartItems, setCartItems] = useState<ICartItem[]>([]);
   const [productCount, setProductCount] = useState(0);
+  const [cartItems, setCartItems] = useState<ICartItem[]>([]);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   async function getMovies(searchTerm: string) {
@@ -45,7 +52,7 @@ const App: React.FC = () => {
 
   async function getCategories() {
     const result = await axios.get(CATEGORIES_URL);
-    console.log("get categories result", result.data);
+    // console.log("get categories result", result.data);
     setCategoriesResult(result.data);
 
     return result;
@@ -53,6 +60,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getCategories();
+    // setCategoriesResult(result.data);
   }, []);
 
   const addToCart = (product: IMovie) => {
@@ -142,28 +150,29 @@ const App: React.FC = () => {
   // console.log("cartItems", cartItems);
 
   return (
-    <div className='grid-container'>
-      <Header
-        filterCategory={filterCategory}
-        count={productCount}
-        category={categoriesResult}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
-      <main>
-        <div className='content'>
-          <Products products={showProducts} addToCart={addToCart} />
-          <div className='sidebar'>
-            <Cart
-              cartItems={cartItems}
-              removeFromCart={removeFromCart}
-              // createOrder={createOrder}
-            />
+    <BrowserRouter>
+      <div className='grid-container'>
+        <Header
+          filterCategory={filterCategory}
+          count={productCount}
+          category={categoriesResult}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+        <main>
+          {/* <Route path='/admin' component={AdminScreen} />
+          <Route path='/' component={HomeScreen} exact /> */}
+          <div className='content'>
+            <Products products={showProducts} addToCart={addToCart} />
+            <div className='sidebar'>
+              <Cart cartItems={cartItems} removeFromCart={removeFromCart} />
+            </div>
           </div>
-        </div>
-      </main>
-      <footer>All rights reserved.</footer>
-    </div>
+        </main>
+        <Footer />
+        {/* <footer>All rights reserved.</footer> */}
+      </div>
+    </BrowserRouter>
   );
 };
 

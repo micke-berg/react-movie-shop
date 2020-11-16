@@ -1,6 +1,6 @@
-import { IMovie } from "./IMovie";
+import IMovie from "./IMovie";
 
-export interface ICartItem {
+export default interface ICartItem {
   movie: IMovie;
   quantity: number;
 }

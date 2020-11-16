@@ -1,3 +1,3 @@
-export interface ISearchTerm {
+export default interface ISearchTerm {
   name: string;
 }

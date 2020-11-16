@@ -1,4 +1,4 @@
-export interface IPostOrder {
+export default interface IPostOrder {
   email: string;
   name: string;
   address: string;

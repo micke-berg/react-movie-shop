@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Thumb.style.scss";
 
-import { IMovie } from "../../Interfaces/IMovie";
-import { ICartItem } from "../../Interfaces/ICartItem";
-import { IProduct } from "../../Interfaces/IProduct";
+import IMovie from "../../Interfaces/IMovie";
+import ICartItem from "../../Interfaces/ICartItem";
+import IProduct from "../../Interfaces/IProduct";
 
 import Modal from "react-modal";
 import { Fade, Zoom } from "react-awesome-reveal";
