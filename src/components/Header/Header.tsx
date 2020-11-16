@@ -41,9 +41,6 @@ const Header: React.FC<Props> = ({
             <span className='main-color'>.</span>
           </h2>
         </Link>
-        <Link to='/admin'>
-          <div>Admin</div>
-        </Link>
       </div>
       <div className='header-content'>
         <div className='header-filter-row'>
