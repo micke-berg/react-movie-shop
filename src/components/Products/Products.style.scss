@@ -12,6 +12,11 @@
   margin: 0;
 }
 
+.ReactModal__Overlay {
+  position: relative;
+  z-index: 1000;
+}
+
 .modal-wrapper {
   position: relative;
   display: flex;
@@ -20,7 +25,7 @@
   align-items: center;
   max-width: 100%;
   background: rgba(24, 24, 24, 0.9);
-  padding: 20px;
+  // padding: 20px;
   .modal-product-details {
     display: flex;
     justify-content: flex-start;
@@ -28,9 +33,10 @@
     width: 100%;
     img {
       object-fit: contain;
-      max-width: 400px;
+      margin-right: 60px;
+      max-width: 390px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2),
-        -1px 0px 20px rgba(0, 0, 0, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.3);
+        -2px -1px 20px rgba(0, 0, 0, 0.2), 5px 4px 15px rgba(0, 0, 0, 0.6);
     }
     .product-name {
       padding: 0;
@@ -44,6 +50,7 @@
     justify-content: space-between;
     margin: 80px 0 0 20px;
     height: 360px;
+    max-width: 500px;
     .year {
       font-size: 18px;
     }
@@ -52,8 +59,7 @@
       justify-content: space-between;
       flex-direction: column;
       width: 500px;
-      .modal-product-price {
-      }
+
       button {
         outline: none;
         width: 30%;
@@ -71,8 +77,8 @@
     border: none;
     font-size: 55px;
     position: absolute;
-    top: 10px;
-    right: 24px;
+    top: 0px;
+    right: -40px;
     transform: rotate(45deg);
   }
 }

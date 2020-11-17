@@ -104,14 +104,16 @@ form {
 // Order details
 
 .order-details {
-  background: #ffffff;
-  color: #000000;
+  position: relative;
+  top: 30px;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100%;
   li {
+    margin-left: -40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -128,13 +130,17 @@ form {
     display: flex;
     justify-content: flex-start;
     button {
+      position: absolute;
       margin-top: -15px;
-      color: #000000;
+      top: -25px;
+      right: 20px;
+      color: #fff;
       background: transparent;
       font-size: 55px;
       transform: rotate(45deg);
+      outline: none;
       :focus {
-        outline: none;
+        border: none;
       }
     }
   }
@@ -142,4 +148,10 @@ form {
 
 .success-message {
   color: green;
+  font-size: 24px;
+}
+
+.ReactModal__Overlay {
+  position: relative;
+  z-index: 1000;
 }
