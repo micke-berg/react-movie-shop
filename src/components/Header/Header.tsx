@@ -49,12 +49,12 @@ const Header: React.FC<Props> = ({
   return (
     <header className={`header-wrapper ${handleShow && "nav-black"}`}>
       <div className='links'>
-        <div className='logo'>
+        <Link to='/' className='logo'>
           <h2>
             <span className='main-color'>Movie</span> Shop
             <span className='main-color'>.</span>
           </h2>
-        </div>
+        </Link>
       </div>
       <div className='header-content'>
         <div className='header-filter-row'>
