@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Filter from "../Filter/Filter";
 import "./Header.style.scss";
@@ -27,13 +27,27 @@ const Header: React.FC<Props> = ({
   setSearchTerm,
 }) => {
   const [isHidden, setIsHidden] = useState<boolean>(true);
-
+  const [handleShow, setHandleShow] = useState<boolean>(false);
   const toggleIsHidden = () => {
     setIsHidden(!isHidden);
   };
 
+  useEffect(() => {
+    const doSomething = () => {
+      console.log("remove");
+    };
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setHandleShow(true);
+      } else setHandleShow(false);
+    });
+    return () => {
+      window.removeEventListener("scroll", doSomething);
+    };
+  }, []);
+
   return (
-    <header className='header-wrapper'>
+    <header className={`header-wrapper ${handleShow && "nav-black"}`}>
       <div className='links'>
         <div className='logo'>
           <h2>

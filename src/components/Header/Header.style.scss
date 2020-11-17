@@ -1,13 +1,20 @@
 .header-wrapper {
-  position: relative;
+  position: fixed;
   display: flex;
   width: 100vw;
-  height: 100px;
+  height: 112px;
   flex-direction: column;
-
+  transition-timing-function: ease-in;
+  transition: all 0.3s;
+  z-index: 100;
   .logo {
     margin-left: 10px;
   }
+}
+
+.nav-black {
+  z-index: 100;
+  background: #141414;
 }
 
 .links {
@@ -22,12 +29,11 @@
 }
 
 .header-content {
-  background: #f18900;
+  // background: #f18900;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  border: 0.1rem solid rgba(13, 13, 13, 0.7);
 }
 .header-filter-row {
   position: relative;
