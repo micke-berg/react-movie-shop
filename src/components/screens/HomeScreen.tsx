@@ -9,7 +9,7 @@ import IOrder from "../../Interfaces/IOrder";
 import IProduct from "../../Interfaces/IProduct";
 import IMovie from "../../Interfaces/IMovie";
 import ICategories from "../../Interfaces/ICategories";
-import ISearchTerm from "../../Interfaces/ISearsTerm";
+import ISearchTerm from "../../Interfaces/ISearchTerm";
 
 import Cart from "../../components/Cart/Cart";
 import Products from "../../components/Products/Products";
@@ -53,7 +53,6 @@ const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     getCategories();
-    // setCategoriesResult(result.data);
   }, []);
 
   const addToCart = (product: IMovie) => {
@@ -141,30 +140,28 @@ const HomeScreen: React.FC = () => {
   }, [showProducts]);
 
   return (
-    <BrowserRouter>
-      <div className='grid-container'>
-        <Header
-          filterCategory={filterCategory}
-          count={productCount}
-          category={categoriesResult}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-        <main>
-          <div className='content'>
-            <Products products={showProducts} addToCart={addToCart} />
-            <div className='sidebar'>
-              <Cart
-                resetCartItems={resetCartItems}
-                cartItems={cartItems}
-                removeFromCart={removeFromCart}
-              />
-            </div>
+    <div className='grid-container'>
+      <Header
+        filterCategory={filterCategory}
+        count={productCount}
+        category={categoriesResult}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
+      <main>
+        <div className='content'>
+          <Products products={showProducts} addToCart={addToCart} />
+          <div className='sidebar'>
+            <Cart
+              resetCartItems={resetCartItems}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
           </div>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 };
 
