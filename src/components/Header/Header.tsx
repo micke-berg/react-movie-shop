@@ -35,17 +35,23 @@ const Header: React.FC<Props> = ({
   return (
     <header className='header-wrapper'>
       <div className='links'>
-        <Link to='/'>
+        <div className='logo'>
           <h2>
             <span className='main-color'>Movie</span> Shop
             <span className='main-color'>.</span>
           </h2>
-        </Link>
+        </div>
       </div>
       <div className='header-content'>
         <div className='header-filter-row'>
           <div className='filter-result'> {count} Movies</div>
           <Filter onChange={filterCategory} category={category} />
+          <button
+            className='btn-search-icon'
+            type='button'
+            onClick={toggleIsHidden}>
+            <img className='search-icon' src={searchIcon} alt='Search icon' />
+          </button>
         </div>
       </div>
       <div className='header-searchbar'>
@@ -53,12 +59,6 @@ const Header: React.FC<Props> = ({
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         )}
       </div>
-      <button
-        className='btn-search-icon'
-        type='button'
-        onClick={toggleIsHidden}>
-        <img className='search-icon' src={searchIcon} alt='Search icon' />
-      </button>
     </header>
   );
 };
