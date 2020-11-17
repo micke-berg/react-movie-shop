@@ -40,9 +40,40 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
         ))}
       </ul>
       {modalProduct && (
-        <Modal isOpen={true} onRequestClose={closeModal}>
+        <Modal
+          isOpen={true}
+          onRequestClose={closeModal}
+          style={{
+            overlay: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(255, 255, 255, 0.75)",
+            },
+            content: {
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              top: "40px",
+              left: "40px",
+              right: "40px",
+              bottom: "40px",
+              height: "100",
+              border: "1px solid #ccc",
+              background: "#181818",
+              overflow: "auto",
+              WebkitOverflowScrolling: "touch",
+              borderRadius: "4px",
+              outline: "none",
+              padding: "10px",
+              opacity: "0.95",
+            },
+          }}>
           <Zoom>
-            <div className='modal-wrapper'>
+            <div className='modal-wrapper '>
               <button
                 className='close-modal button-close-modal'
                 onClick={closeModal}>

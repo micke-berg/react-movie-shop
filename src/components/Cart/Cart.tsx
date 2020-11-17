@@ -95,48 +95,80 @@ const Cart: React.FC<CartProps> = ({
         </div>
       )}
       {showSubmittedModal && (
-        <Modal isOpen={true} onRequestClose={() => closeModal()}>
+        <Modal
+          isOpen={true}
+          onRequestClose={() => closeModal()}
+          style={{
+            overlay: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(255, 255, 255, 0.75)",
+            },
+            content: {
+              position: "absolute",
+              top: "40px",
+              left: "40px",
+              right: "40px",
+              bottom: "40px",
+              height: "100",
+              border: "1px solid #ccc",
+              background: "#181818",
+              overflow: "auto",
+              WebkitOverflowScrolling: "touch",
+              borderRadius: "4px",
+              outline: "none",
+              padding: "20px",
+              opacity: "0.95",
+            },
+          }}>
           <Zoom>
-            <div className='order-details'>
-              <span className='close-modal '>
-                <button
-                  className='button-close-modal'
-                  onClick={() => closeModal()}>
-                  +
-                </button>
-              </span>
-              <h3 className='success-message'>Your order has been placed</h3>
-              <h2>Order: {Math.floor(Math.random() * 11000 - 6000)}</h2>
-              <ul>
-                <li>
-                  <div>Name:</div>
-                  <div>{orderState.name}</div>
-                </li>
-                <li>
-                  <div>Email:</div>
-                  <div>{orderState.email}</div>
-                </li>
-                <li>
-                  <div>Date:</div>
-                  <div>{new Date().toISOString()}</div>
-                </li>
-                <li>
-                  <div>Total:</div>
-                  <div>{totalPrice} KR</div>
-                </li>
-                <li>
-                  <div>Cart Items:</div>
-                  <div>
-                    {cartItems.map((item) => (
-                      <div key={item.movie.id}>
-                        {item.quantity}
-                        {" x "}
-                        {item.movie.name}
-                      </div>
-                    ))}
-                  </div>
-                </li>
-              </ul>
+            <div className='bg-dark'>
+              <div className='order-details'>
+                <span className='close-modal '>
+                  <button
+                    className='button-close-modal'
+                    onClick={() => closeModal()}>
+                    +
+                  </button>
+                </span>
+                <div className='success-message'>
+                  Your order has been placed
+                </div>
+                <h2>Order: {Math.floor(Math.random() * 11000 - 6000)}</h2>
+                <ul>
+                  <li>
+                    <div>Name:</div>
+                    <div>{orderState.name}</div>
+                  </li>
+                  <li>
+                    <div>Email:</div>
+                    <div>{orderState.email}</div>
+                  </li>
+                  <li>
+                    <div>Date:</div>
+                    <div>{new Date().toISOString()}</div>
+                  </li>
+                  <li>
+                    <div>Total:</div>
+                    <div>{totalPrice} KR</div>
+                  </li>
+                  <li>
+                    <div>Cart Items:</div>
+                    <div>
+                      {cartItems.map((item) => (
+                        <div key={item.movie.id}>
+                          {item.quantity}
+                          {" x "}
+                          {item.movie.name}
+                        </div>
+                      ))}
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </Zoom>
         </Modal>
