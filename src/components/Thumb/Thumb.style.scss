@@ -11,32 +11,25 @@
   background: #181818;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.6), 1px 1px 0px rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
-  // z-index: 1;
 
   img {
     width: 100%;
   }
   .button {
     padding: 0.5rem 1.2rem;
-    border: 1px solid #f18900;
-    background-color: #f18900;
-    &:hover {
-      color: #f18900;
-      background: transparent;
-    }
   }
 }
 
 .thumb-li:hover {
   transform: scale(1.05);
-  box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.6), 2px 2px 12px rgba(0, 0, 0, 0.2),
-    -2px 1px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 14px rgba(0, 0, 0, 0.6), 2px 2px 14px rgba(0, 0, 0, 0.2),
+    -2px 1px 10px rgba(0, 0, 0, 0.2);
   img {
     opacity: 0.75;
   }
 }
 
-.title-price {
+.thumb-info {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,11 +44,4 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-
-  // div {
-  //   font-size: 1.6rem;
-  // }
-  .thumb-price-btn {
-    display: flex;
-  }
 }
