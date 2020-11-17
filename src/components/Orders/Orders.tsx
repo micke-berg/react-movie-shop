@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ORDERS_URL } from "../../config";
 
 import "./Order.style.scss";
+
+import { ORDERS_URL } from "../../config";
 import { getOrders } from "../../API";
 
-interface Props {}
-function Orders(props: any) {
+import IOrderData from "../../Interfaces/IOrderData";
+
+function Orders() {
   const [orders, setOrders] = useState([]);
   const companyId = 13932;
 
   async function getOrders(companyId: number) {
-    await axios
-      .get(`${ORDERS_URL}?companyId=${companyId}`)
-      .then((result: any) => {
-        console.log(result);
-        console.log("get orders result", result.data);
-        setOrders(result.data);
-      });
+    await axios.get(`${ORDERS_URL}?companyId=${companyId}`).then((result) => {
+      // console.log(result);
+      setOrders(result.data);
+    });
   }
 
   useEffect(() => {
@@ -38,7 +37,7 @@ function Orders(props: any) {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order: any) => (
+          {orders.map((order: IOrderData) => (
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>{order.created}</td>
