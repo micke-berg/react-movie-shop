@@ -48,14 +48,14 @@ const Header: React.FC<Props> = ({
 
   return (
     <header className={`header-wrapper ${handleShow && "nav-black"}`}>
-      <div className='links'>
+      <Link to='/' className='links'>
         <div className='logo'>
           <h2>
             <span className='main-color'>Movie</span> Shop
             <span className='main-color'>.</span>
           </h2>
         </div>
-      </div>
+      </Link>
       <div className='header-content'>
         <div className='header-filter-row'>
           <div className='filter-result'> {count} Movies</div>
