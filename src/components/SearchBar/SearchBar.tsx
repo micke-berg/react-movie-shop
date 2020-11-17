@@ -29,7 +29,6 @@ const SearchBar: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
   return (
     <div className='searchbar-wrapper'>
       <div className='searchbar-content'>
-        <img src={searchIcon} alt='search-icon' />
         <input
           type='text'
           placeholder='Search Movie...'
