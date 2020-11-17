@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import axios from "axios";
 
-import { ORDERS_URL } from "../../config";
+import { ORDERS_URL } from "../api/config";
 
 // import IOrder from "../../Interfaces/IOrder";
-import Orders from "../Orders/Orders";
+import Orders from "../components/Orders/Orders";
 
 const AdminScreen: React.FC = () => {
   const [orderId, setOrderId] = useState(0);

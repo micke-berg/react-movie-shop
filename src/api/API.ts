@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import IOrder from "./Interfaces/IOrder";
+import IOrder from "../Interfaces/IOrder";
 
 import axios from "axios";
 import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL, ORDERS_URL } from "./config";

@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import axios from "axios";
-import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL } from "../../config";
+import { SEARCH_BASE_URL, API_URL, CATEGORIES_URL } from "../api/config";
 
-import ICartItem from "../../Interfaces/ICartItem";
-import IOrder from "../../Interfaces/IOrder";
-import IProduct from "../../Interfaces/IProduct";
-import IMovie from "../../Interfaces/IMovie";
-import ICategories from "../../Interfaces/ICategories";
-import ISearchTerm from "../../Interfaces/ISearchTerm";
+import ICartItem from "../Interfaces/ICartItem";
+import IOrder from "../Interfaces/IOrder";
+import IProduct from "../Interfaces/IProduct";
+import IMovie from "../Interfaces/IMovie";
+import ICategories from "../Interfaces/ICategories";
+import ISearchTerm from "../Interfaces/ISearchTerm";
 
-import Cart from "../../components/Cart/Cart";
-import Products from "../../components/Products/Products";
-import Filter from "../../components/Filter/Filter";
-import Header from "../../components/Header/Header";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import Footer from "../../components/Footer/Footer";
+import Cart from "../components/Cart/Cart";
+import Products from "../components/Products/Products";
+import Filter from "../components/Filter/Filter";
+import Header from "../components/Header/Header";
+import SearchBar from "../components/SearchBar/SearchBar";
+import Footer from "../components/Footer/Footer";
 
 const HomeScreen: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");

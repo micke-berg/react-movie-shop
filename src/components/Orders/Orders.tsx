@@ -3,8 +3,8 @@ import axios from "axios";
 
 import "./Order.style.scss";
 
-import { ORDERS_URL } from "../../config";
-import { getOrders } from "../../API";
+import { ORDERS_URL } from "../../api/config";
+import { getOrders } from "../../api/API";
 
 import IOrderData from "../../Interfaces/IOrderData";
 

@@ -5,9 +5,9 @@ import { Fade, Zoom } from "react-awesome-reveal";
 
 import "./Cart.styles.scss";
 
-import { createOrder } from "../../API";
+import { createOrder } from "../../api/API";
 
-import { ORDERS_URL } from "../../config";
+import { ORDERS_URL } from "../../api/config";
 
 import ICartItem from "../../Interfaces/ICartItem";
 import IOrder from "../../Interfaces/IOrder";
@@ -26,7 +26,6 @@ const Cart: React.FC<CartProps> = ({
   const [showSubmittedModal, setShowSubmittedModal] = useState(false);
   const [showCheckOut, setShowCheckOut] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const [creatingOrder, setCreatingOrder] = useState<IOrder[]>([]);
   const [orderState, setOrderState] = useState<any | null>({
     name: "",
     email: "",
