@@ -11,6 +11,7 @@ import { ORDERS_URL } from "../../api/config";
 
 import ICartItem from "../../Interfaces/ICartItem";
 import IOrder from "../../Interfaces/IOrder";
+import { Link } from "react-router-dom";
 
 interface CartProps {
   cartItems: ICartItem[];
@@ -128,11 +129,12 @@ const Cart: React.FC<CartProps> = ({
             <div className='bg-dark'>
               <div className='order-details'>
                 <span className='close-modal '>
-                  <button
+                  <Link
+                    to='/'
                     className='button-close-modal'
                     onClick={() => closeModal()}>
                     +
-                  </button>
+                  </Link>
                 </span>
                 <div className='success-message'>
                   Your order has been placed
