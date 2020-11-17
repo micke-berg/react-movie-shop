@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Products.style.scss";
 
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 import { Fade, Zoom } from "react-awesome-reveal";
 
 import IMovie from "../../Interfaces/IMovie";
@@ -74,11 +75,12 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
           }}>
           <Zoom>
             <div className='modal-wrapper '>
-              <button
+              <Link
+                to='/'
                 className='close-modal button-close-modal'
                 onClick={closeModal}>
                 +
-              </button>
+              </Link>
               <div className='modal-product-details'>
                 <img src={modalProduct.imageUrl} alt={modalProduct.name} />
                 <div className='modal-products-info'>
