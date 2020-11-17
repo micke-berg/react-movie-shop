@@ -34,10 +34,9 @@ textarea {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header"
     "main"
     "footer";
-  grid-template-rows: 17rem 1fr 5rem;
+  grid-template-rows: 2fr 5rem;
   grid-template-columns: 1fr;
   height: 100%;
 }
@@ -55,6 +54,9 @@ header {
     flex-wrap: wrap;
   }
 }
+main {
+  margin: 140px 0;
+}
 
 .sidebar {
   flex: 1 30rem;
@@ -71,10 +73,16 @@ header {
 }
 
 .button.primary {
+  cursor: pointer;
   &:hover {
     color: #f18900;
     background: transparent;
   }
+}
+
+.button-close-modal {
+  cursor: pointer;
+  outline: none;
 }
 
 // Admin page styling

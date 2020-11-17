@@ -43,7 +43,9 @@ const Products: React.FC<Props> = ({ products, addToCart }) => {
         <Modal isOpen={true} onRequestClose={closeModal}>
           <Zoom>
             <div className='modal-wrapper'>
-              <button className='close-modal' onClick={closeModal}>
+              <button
+                className='close-modal button-close-modal'
+                onClick={closeModal}>
                 +
               </button>
               <div className='modal-product-details'>

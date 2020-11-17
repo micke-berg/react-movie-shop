@@ -98,8 +98,12 @@ const Cart: React.FC<CartProps> = ({
         <Modal isOpen={true} onRequestClose={() => closeModal()}>
           <Zoom>
             <div className='order-details'>
-              <span className='close-modal'>
-                <button onClick={() => closeModal()}>+</button>
+              <span className='close-modal '>
+                <button
+                  className='button-close-modal'
+                  onClick={() => closeModal()}>
+                  +
+                </button>
               </span>
               <h3 className='success-message'>Your order has been placed</h3>
               <h2>Order: {Math.floor(Math.random() * 11000 - 6000)}</h2>

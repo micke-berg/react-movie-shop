@@ -22,7 +22,7 @@ const Thumb: React.FC<Props> = ({ movie, addToCart, openModal }) => {
         <img src={movie.imageUrl} alt={movie.name} />
       </a>
       <div className='thumb-info'>
-        <p>{truncate(movie.name, 50)}</p>
+        <p>{truncate(movie.name, 45)}</p>
 
         <div className='thumb-product-price'>
           <div>{movie.price} KR</div>
