@@ -10,9 +10,7 @@ import { createOrder } from "../../API";
 import { ORDERS_URL } from "../../config";
 
 import ICartItem from "../../Interfaces/ICartItem";
-import IMovie from "../../Interfaces/IMovie";
 import IOrder from "../../Interfaces/IOrder";
-import ICheckOut from "../../Interfaces/ICheckOut";
 
 interface CartProps {
   cartItems: ICartItem[];
@@ -28,7 +26,7 @@ const Cart: React.FC<CartProps> = ({
   const [showSubmittedModal, setShowSubmittedModal] = useState(false);
   const [showCheckOut, setShowCheckOut] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [creatingOrder, setCreatingOrder] = useState<IOrder[]>([]);
+  // const [creatingOrder, setCreatingOrder] = useState<IOrder[]>([]);
   const [orderState, setOrderState] = useState<any | null>({
     name: "",
     email: "",
@@ -43,12 +41,11 @@ const Cart: React.FC<CartProps> = ({
 
   const companyId = 13932;
 
-  const handleInput = (e: any) => {
-    console.log("handle input");
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOrderState({ ...orderState, [e.target.name]: e.target.value });
   };
 
-  const createOrders = (e: any) => {
+  const createOrders = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const order = {
@@ -62,7 +59,6 @@ const Cart: React.FC<CartProps> = ({
       orderRows: [],
     };
 
-    console.log("create order", order);
     createOrder(order);
     setShowSubmittedModal(true);
   };
@@ -72,13 +68,11 @@ const Cart: React.FC<CartProps> = ({
     resetCartItems();
     setTotalPrice(0);
     localStorage.clear();
-    console.log("clear orderState", orderState);
   };
 
   const closeModal = () => {
     clearOrder();
     setShowSubmittedModal(false);
-    console.log("close Modal");
   };
 
   useEffect(() => {
@@ -90,10 +84,7 @@ const Cart: React.FC<CartProps> = ({
   }, [cartItems]);
 
   Modal.setAppElement("body");
-  console.log("this is cartItems", cartItems);
-  console.log(totalPrice);
-  // console.log(showSubmittedModal);
-  // console.log(orderState);
+
   return (
     <div>
       {cartItems.length === 0 ? (

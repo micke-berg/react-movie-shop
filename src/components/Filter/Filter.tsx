@@ -16,7 +16,6 @@ const Filter: React.FC<Props> = ({ category, onChange }) => {
   return (
     <div className='filter-wrapper'>
       <div className='filter'>
-        {/* <div className='filter-result'> {count} Movies</div> */}
         <div className='filter-sort'>
           Filter by category{" "}
           <select onChange={onChange}>

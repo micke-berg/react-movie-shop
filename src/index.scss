@@ -21,6 +21,7 @@ a {
 li {
   list-style: none;
 }
+
 body,
 input,
 select,
@@ -41,6 +42,7 @@ textarea {
   height: 100%;
 }
 
+// Main header
 header {
   grid-area: header;
 }
@@ -56,23 +58,37 @@ header {
   margin-right: 10px;
 }
 
-// footer {
-//   grid-area: footer;
-//   background-color: #0d0d0d;
-//   color: #ffffff;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
 .button {
-  background: #f18900;
   border: none;
   outline: none;
+  border: 1px solid #f18900;
+  background-color: #f18900;
 }
 
 .button.primary {
   &:hover {
-    background: rgba(241, 137, 0, 0.851);
+    color: #f18900;
+    background: transparent;
+  }
+}
+
+// Admin page styling
+.admin-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 30px;
+  width: 100%;
+  padding: 10px 40px;
+  div {
+    display: flex;
+    height: 100%;
+  }
+  a {
+    margin-right: 40px;
+    font-size: 20px;
+  }
+  button {
+    padding: 0 12px;
   }
 }
