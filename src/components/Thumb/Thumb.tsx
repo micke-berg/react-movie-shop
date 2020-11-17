@@ -2,24 +2,16 @@ import React, { useState } from "react";
 import "./Thumb.style.scss";
 
 import IMovie from "../../Interfaces/IMovie";
-import ICartItem from "../../Interfaces/ICartItem";
-import IProduct from "../../Interfaces/IProduct";
 
 import Modal from "react-modal";
 import { Fade, Zoom } from "react-awesome-reveal";
-
-// interface addToCartProps {
-//   movie: IMovie;
-// }
-
 interface Props {
-  addToCart(value: IMovie): void;
   movie: IMovie;
+  addToCart(value: IMovie): void;
   openModal(product: IMovie): void;
-  // movie: addToCartProps;
 }
 
-const Thumb: React.FC<Props> = ({ addToCart, movie, openModal }) => {
+const Thumb: React.FC<Props> = ({ movie, addToCart, openModal }) => {
   const truncate = (str: any, n: number) => {
     return str?.length > n ? str.substring(0, n - 1) + "..." : str;
   };
@@ -29,7 +21,7 @@ const Thumb: React.FC<Props> = ({ addToCart, movie, openModal }) => {
       <a href={`#${movie.id}`} onClick={() => openModal(movie)}>
         <img src={movie.imageUrl} alt={movie.name} />
       </a>
-      <div className='title-price'>
+      <div className='thumb-info'>
         <p>{truncate(movie.name, 50)}</p>
 
         <div className='thumb-product-price'>
