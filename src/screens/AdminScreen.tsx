@@ -4,7 +4,6 @@ import axios from "axios";
 
 import { ORDERS_URL } from "../api/config";
 
-// import IOrder from "../../Interfaces/IOrder";
 import Orders from "../components/Orders/Orders";
 
 const AdminScreen: React.FC = () => {
@@ -37,7 +36,6 @@ const AdminScreen: React.FC = () => {
           <input
             placeholder=' Enter order id...'
             required
-            value={orderId}
             onChange={handleChange}
           />
           <button onClick={runDeleteOrder} className='button primary'>
@@ -45,7 +43,7 @@ const AdminScreen: React.FC = () => {
           </button>
         </div>
       </header>
-      <Orders />
+      <Orders runDeleteOrder={runDeleteOrder} />
     </div>
   );
 };
