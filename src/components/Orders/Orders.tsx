@@ -8,7 +8,11 @@ import { getOrders } from "../../api/API";
 
 import IOrderData from "../../Interfaces/IOrderData";
 
-function Orders() {
+interface Props {
+  runDeleteOrder(product: IOrderData): void;
+}
+
+const Orders: React.FC<Props> = ({ runDeleteOrder }) => {
   const [orders, setOrders] = useState([]);
   const companyId = 13932;
 
@@ -21,7 +25,7 @@ function Orders() {
 
   useEffect(() => {
     getOrders(companyId);
-  }, []);
+  }, [runDeleteOrder]);
 
   return !orders ? (
     <div>Orders</div>
@@ -48,6 +52,6 @@ function Orders() {
       </table>
     </div>
   );
-}
+};
 
 export default Orders;
