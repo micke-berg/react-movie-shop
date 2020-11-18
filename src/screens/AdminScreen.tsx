@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { ORDERS_URL } from "../api/config";
 
+// import IOrder from "../../Interfaces/IOrder";
 import Orders from "../components/Orders/Orders";
 
 const AdminScreen: React.FC = () => {
